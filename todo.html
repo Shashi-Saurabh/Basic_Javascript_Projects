@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html{
+            font-size: 62.5%;
+            
+        }
+        body{
+            width: 80vw;
+            height:100vh;
+            margin: auto;
+        }
+        .main-head{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            padding: 2rem;
+            font-weight: 700;
+        }
+        .container{
+            display: flex;
+            flex-direction: column;
+            gap:2rem;
+        }
+        .list,.input-contain{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap:1rem;
+            row-gap:1rem ;
+            margin-top: 1rem;
+        
+        }
+        #todo-input,#todo-date{
+            font-size: 1.5rem;
+            padding: 1rem 0.5rme;
+        }
+        .btn1{
+            padding: 0.5rem 1.5rem;
+            border-radius: 1rem;
+            background-color: green;
+            color: white;
+            border: none;
+        }
+        .btn2{
+            padding: 0.5rem 1.5rem;
+            border-radius: 1rem;
+            background-color: brown;
+            color: white;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="main-head">
+            Todo App
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="input-contain">
+                <input id="todo-input" type="text" placeholder="Enter todo here">
+                <input type="date" id="todo-date">
+                <button class="btn1" onclick="addTodo();">Add</button>
+            </div>
+            <div class="lists">
+                <!-- <div class="title">
+                    Doodh leke aana hai
+                </div>
+                <div class="date-entered">
+                    4-10-2023
+                </div>
+                <div class="btn">
+                    <button class="btn2">Delete</button>
+                </div> -->
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script>
+        let todoList=[
+            {
+                item:'Buy Milk',
+                dueDate:'2023-10-04'
+            }
+        ];
+        displayItems();
+        function addTodo(){
+            let inputElement=document.querySelector('#todo-input');
+            let dateElement=document.querySelector('#todo-date');
+            let todoItem=inputElement.value;
+            let todoDate=dateElement.value;
+            // console.log(todoItem);
+            todoList.push({item:todoItem, dueDate:todoDate});
+            inputElement.value='';
+            dateElement.value='';
+            displayItems();
+        }
+        function displayItems(){
+            let containerElement=document.querySelector('.lists');
+            let newhtml='';
+            // displayElement.innerText='';
+            for(let i=0;i<todoList.length;i++)
+            {
+                // let item=todoList[i].item;
+                // let dueDate=todoList[i].dueDate;
+                let {item,dueDate}=todoList[i];
+                newhtml+=`
+                <div class="list">
+                <div class="title">
+                ${item}
+                </div>
+                <div class="date-entered">
+                ${dueDate}
+                </div>
+                <div class="btn">
+                    <button onclick="todoList.splice(${i},1); displayItems()" class="btn2">Delete</button>
+                </div>
+                </div>
+                `;
+            }
+            //console.log(newhtml);
+            containerElement.innerHTML=newhtml;
+            
+        }
+    </script>
+</body>
+</html>
