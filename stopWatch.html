@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            background-color: #212121;
+            min-height: 100vh;
+
+        }
+        .container{
+            width: 200px;
+            padding: 50px 5px;
+        }
+        .clock{
+            background-color: black;
+            /* display: flex; */
+            /* justify-content: center; */
+            padding: 1rem 2rem;
+            font-size: 2rem;
+            font-weight: 600;
+
+            border-radius: 50px;
+
+
+            
+        }
+        .btns{
+            display: flex;
+            justify-content: space-between;
+            /* color: #ffffff; */
+            gap:10px;
+            padding: 1rem 0;
+        }
+        .btn1{
+            background-color: red;
+            border: none;
+            color: #ffffff;
+            padding: 0.5rem;
+            border-radius: 50px;
+
+
+
+        }
+        .btn2{
+            background-color: lightgreen;
+            border: none;
+            color: #ffffff;
+            padding: 0.5rem;
+            border-radius: 50px;
+
+        }
+        .btn3{
+            background-color: blue;
+            border: none;
+            color: #ffffff;
+            padding: 0.5rem;
+            border-radius: 50px;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="clock">
+            <!-- <div class="hour" id="hour">00</div>
+            :<div class="min" id="min">00</div>
+            :<div class="sec" id="sec">00</div> -->
+            00:00:00
+        </div>
+        <div class="btns">
+            <button class="btn1">Stop</button>
+            <button class="btn2">Start</button>
+            <button class="btn3">Reset</button>
+        </div>
+    </div>
+    <script>
+        let clk=document.querySelector('.clock');
+        let stopBtn=document.querySelector('.btn1');
+        let startBtn=document.querySelector('.btn2');
+        let resetBtn=document.querySelector('.btn3');
+        // console.log(startBtn);
+
+        let timerId=null;
+        let msec=0;
+        let secs=0;
+        let mins=0;
+        startBtn.addEventListener('click',function(){
+            if(timerId!==null)
+            {
+                clearInterval(timerId);
+            }
+            timerId=setInterval(startTimer,10);
+        });
+        stopBtn.addEventListener('click',function(){
+            clearInterval(timerId);
+        });
+
+        resetBtn.addEventListener('click',function(){
+            clearInterval(timerId);
+            clk.innerHTML=`00:00:00`;
+            msec=0;secs=0;mins=0;
+        });
+
+
+        function startTimer(){
+            msec++;
+            if(msec==100)
+            {
+                msec=0;
+                secs++;
+                if(secs==60){
+                    secs=0;
+                    mins++;
+                }
+            }
+            let msecString=msec<10?`0${msec}`:msec;
+            let secsString=secs<10?`0${secs}`:secs;
+            let minsString=mins<10?`0${mins}`:mins;
+            // console.log(msecString);
+            clk.innerHTML=`${minsString}:${secsString}:${msecString}`;
+        }
+    </script>
+</body>
+</html>

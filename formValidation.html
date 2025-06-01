@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation in Javascript</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        html{
+            font-size: 62.5%;
+        }
+        body{
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url('wave-haikei.png') no-repeat;
+            background-size: cover;
+            color: #ffffff;
+
+        }
+        .box{
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 2px 5px lightblue,-2px -2px 5px lightblue;
+            padding: 2.5rem;
+            width: 300px;
+            border-radius: 5px;
+
+        }
+        .box-head{
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .sub-head{
+            font-size: 1.5rem;
+            margin-bottom: 0.2rem;
+        }
+        .box span{
+            font-size: 1rem;
+            font-weight: 600;
+            color: #90ee90;
+        }
+        .box p{
+            position:relative;
+        }
+        p i{
+            position: absolute;
+            color: #008000;
+        }
+        input{
+            width:100%;
+            margin-bottom: 1rem;
+            height: 3rem;
+            border: none;
+            outline: none;
+            font-size: 1.5rem;
+            color: #000;
+            padding: 10px;
+        }
+        button{
+            padding: 0.8rem;
+            background-color: #378AC1;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            margin: 1rem 0;
+        }
+        button:hover{
+            background-color: #2773a5;
+            cursor: pointer;
+        }
+        .foot{
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="box-head">
+            Signup
+        </div>
+        <p>
+            <div class="sub-head">
+            Full Name
+            </div>
+            <input type="text" placeholder="Type Name Here" id="name">
+            <i class="fa-solid"></i>
+            <span id="nameError"></span>
+        </p>
+        
+        <p>
+            <div class="sub-head">
+            Email
+            </div>
+            <input type="email" placeholder="xyz@gmail.com" id="email">
+            <i class="fa-solid"></i>
+            <span id="emailError"></span>
+        </p>
+        
+        <p>
+            <div class="sub-head">
+            Password
+            </div>
+            <input type="password" placeholder="at least 8 characters" id="password">
+            <i class="fa-solid"></i>
+            <span id="passError"></span>
+        </p>
+        
+        <button id="submitBtn">Create Account</button>
+        <div class="foot">
+            Already have an account?Login
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js" integrity="sha512-b+nQTCdtTBIRIbraqNEwsjB6UvL3UEMkXnhzd8awtCYh0Kcsjl9uEgwVFVbhoj3uu1DO1ZMacNvLoyJJiNfcvg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const submitBtn=document.getElementById('submitBtn');
+        const nameError=document.querySelector('#nameError');
+        const emailError=document.querySelector('#emailError');
+        const passError=document.querySelector('#passError');
+
+        submitBtn.addEventListener('click',(e)=>{
+            e.preventDefault();
+            if(valitdateName()&&valitdateEmail()&&valitdatePassword()){
+                alert("Form Submitted Successfully");
+            }
+        });
+        function valitdateName(){
+            let name=document.querySelector('#name').value;
+            if(name.length==0)
+            {
+                nameError.innerHTML="Name is required";
+                nameError.previousElementSibling.classList.add('fa-xmark');
+                return false;
+            }
+            if(!name.match(/^[A-Za-z]*\s{1}[A-Za-z]*$/))
+            {
+                nameError.innerHTML="Write full name";
+                nameError.previousElementSibling.classList.add('fa-xmark');
+                return false;
+            }
+            nameError.innerHTML="";
+            nameError.previousElementSibling.classList.remove('fa-xmark');
+            nameError.previousElementSibling.classList.add('fa-check');
+            return true;
+        }
+
+        function valitdateEmail(){
+            let email=document.querySelector('#email').value;
+            if(email.length==0)
+            {
+                emailError.innerHTML="email is required";
+                emailError.previousElementSibling.classList.add('fa-xmark');
+                return false;
+            }
+            if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/))
+            {
+                emailError.innerHTML="Enter Valid Email";
+                emailError.previousElementSibling.classList.add('fa-xmark');
+                return false;
+            }
+            emailError.innerHTML="";
+            emailError.previousElementSibling.classList.remove('fa-xmark');
+            emailError.previousElementSibling.classList.add('fa-check');
+            return true;
+        }
+
+        function valitdatePassword(){
+            let password=document.querySelector('#password').value;
+            if(password.length==0)
+            {
+                passError.innerHTML="password is required";
+                passError.previousElementSibling.classList.add('fa-xmark');
+                return false;
+            }
+            if(!password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,30}$/))
+            {
+                passError.innerHTML="Password should contain 1 Uppercase, 1 Lowecase, 1 Digit & 1 Alphabet";
+                passError.previousElementSibling.classList.add('fa-xmark');
+                return false;
+            }
+            passError.innerHTML="";
+            passError.previousElementSibling.classList.remove('fa-xmark');
+            passError.previousElementSibling.classList.add('fa-check');
+            return true;
+        }
+    </script>
+</body>
+</html>
