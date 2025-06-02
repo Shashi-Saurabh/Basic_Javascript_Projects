@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer using Javascript</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-size: 62.5%;
+            min-height: 100vh;
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #2273c3;
+            background: linear-gradient(0deg, rgba(34, 115, 195, 1) 0%, rgba(139, 30, 179, 1) 100%);    
+            color: aliceblue;
+        }
+        /* .container
+        {
+            width: 600px;
+        } */
+        h1{
+            font-size: 3rem;
+            text-align: center;
+        }
+        .boxs{
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            border-radius: 20px;
+        }
+        .card{
+            height: 100px;
+            width: 100px;
+            margin: 0.5rem 0.5rem;
+            border-radius: 1rem;
+            padding: 1rem 1rem;display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(239, 238, 238, 0.2);
+            height: 100%;
+            width: 100%;
+            min-width: 100px;
+            max-width: 160px;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .box{
+            font-size: 2rem;
+            font-weight: 800;
+        }
+        .label{
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        .card:hover{
+            background-color: rgba(255, 255, 255, 0.25);;
+        }
+        @media screen and (max-width:1024px){
+            h1{
+                font-size: 2rem;
+            }
+            .boxs{
+                flex-wrap: wrap;
+            }
+            .card{
+                max-height: 160px;
+                margin: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>We are Coming soon!</h1>
+        </header>
+        <main>
+            <div class="boxs">
+                <div class="card">
+                    <div class="box" id="days">
+                        19
+                    </div>
+                    <div class="label">DAYS</div>
+                </div>
+                <div class="card">
+                    <div class="box" id="hours">
+                        05
+                    </div>
+                    <div class="label">HOURS</div>
+                </div>
+                <div class="card">
+                    <div class="box" id="mins">
+                        50
+                    </div>
+                    <div class="label">MINS</div>
+                </div>
+                <div class="card">
+                    <div class="box" id="secs">
+                        18
+                    </div>
+                    <div class="label">SECS</div>
+                </div>
+                
+            </div>
+        </main>
+        
+    </div>
+    <script>
+        let days=document.querySelector('#days');
+        let hours=document.querySelector('#hours');
+        let mins=document.querySelector('#mins');
+        let secs=document.querySelector('#secs');
+
+        const updateCountDown=(deadline)=>{
+            const currentTime=new Date();
+            const diff=deadline-currentTime;
+            let sec=Math.floor(diff/1000)%60;
+            let min=Math.floor(diff/1000/60)%60;
+            let hour=Math.floor(diff/1000/60/60)%24;
+            let day=Math.floor(diff/1000/60/60/24);
+            days.innerHTML=formatTime(day);
+            hours.innerHTML=formatTime(hour);
+            mins.innerHTML=formatTime(min);
+            secs.innerHTML=formatTime(sec);
+
+
+            // console.log(diff);
+        }
+        const formatTime=(time)=>{
+            return time<10? `0${time}`: time;
+        }
+        const countDown=(targetDate)=>
+        {
+            setInterval(()=>updateCountDown(targetDate),1000);
+        }
+        const targetDate=new Date("June 27 2025 00:00");
+        countDown(targetDate);
+        // let timerId=null;
+        // let day=10;
+        // let hour=0;
+        // let min=0;
+        // let sec=5;
+        // timerId=setInterval(CountdownTimer,1000);
+        // function CountdownTimer(){
+            
+        //     if(sec==0)
+        //     {
+        //         sec=60;
+        //         if(min==0){
+        //             min=59;
+        //             if(hour==0)
+        //             {
+        //                 hour=23;
+        //                 day--;
+        //             }
+        //             else
+        //             {
+        //                 hour--;
+        //             }
+        //         }
+        //         else
+        //         {
+        //             min--;
+        //         }
+        //     }
+        //     else
+        //     {
+        //         sec--;
+        //     }
+        //     days.innerHTML=day;
+        //     hours.innerHTML=hour;
+        //     mins.innerHTML=min;
+        //     secs.innerHTML=sec;
+        //     // let secString=msec<10?`0${msec}`:msec;
+        //     // let minString=secs<10?`0${secs}`:secs;
+        //     // let minsString=mins<10?`0${mins}`:mins;
+        //     // // console.log(msecString);
+        //     // clk.innerHTML=`${minsString}:${secsString}:${msecString}`;
+        //}
+    </script>
+</body>
+</html>
